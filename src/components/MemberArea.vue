@@ -1,53 +1,62 @@
 <template>
-  <div class="member area">
-    <button
+  <div class="member-area">
+    <collapsible
       v-for="member in members"
+      :open="isCurrentMember(member.id)"
+      :title="member.name"
       :key="member.id"
-      @click="showFilmsByMember(member.id)"
+      @toggle="handleToggle(member.id)"
     >
-      {{ member.name }}
-    </button>
-
-    <div v-if="showMemberFilmList">
-      <ul>
-        <li v-for="film in memberFilmList" :key="film.id">
-          {{ film.title }}
-        </li>
-      </ul>
-      <div>
-        <strong>
-          Gesamtlaufzeit:<br>{{ memberFilmList | totalDuration }}
-        </strong>
-      </div>
-    </div>
+      <FilmList
+        :open="isCurrentMember(member.id)"
+        :filmList="getFilmsByMember(member.id)"
+      />
+    </collapsible>
   </div>
 </template>
 
 <script>
+import Collapsible from "./Collapsible.vue"
+import FilmList from "./FilmList.vue"
+
 export default {
+  components: { 
+    Collapsible,
+    FilmList
+  },
   props: {
     films: Array,
     members: Array
   },
   data() {
     return {
-      memberFilmList: [],
-      showMemberFilmList: false
-    }    
+      currentMember: "",
+    }
   },
   methods: {
     getFilmsByMember(id) {
       return this.films.filter(f => f.member_id === id)
     },
-    showFilmsByMember(id) {
-      this.memberFilmList = this.films.filter(f => f.member_id === id)
-      this.showMemberFilmList = true
+    isCurrentMember(id) {
+      return id === this.currentMember
     },
-  }
-
+    handleToggle(id) {
+      if (!this.currentMember) {
+        this.currentMember = id
+      }
+      else if (this.currentMember === id) {
+        this.currentMember = null
+      } else {
+        this.currentMember = id
+      }
+    }
+  },
 }
 </script>
 
-<style>
+<style scoped>
+.member-area {
+  width: 100%;
+}
 
 </style>

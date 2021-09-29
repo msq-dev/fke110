@@ -84,7 +84,7 @@ export default {
           type: "pie",
           fontFamily: "Avenir, sans-serif",
           animations: {
-            speed: 200
+            speed: 300
           }
         },
           labels: [],

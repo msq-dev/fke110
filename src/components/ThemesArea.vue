@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      currentTheme: "64",
+      currentTheme: "",
     }
   },
   methods: {
