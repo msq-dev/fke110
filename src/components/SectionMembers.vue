@@ -1,5 +1,5 @@
 <template>
-  <div class="member-area">
+  <div class="members-section">
     <collapsible
       v-for="member in members"
       :open="isCurrentMember(member.id)"
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.member-area {
+.members-section {
   width: 100%;
 }
 

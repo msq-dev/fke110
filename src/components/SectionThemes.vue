@@ -1,5 +1,5 @@
 <template>
-  <div class="themes-area">
+  <div class="themes-section">
     <collapsible
       v-for="theme in themes"
       :open="isCurrentTheme(theme.id)"
@@ -30,7 +30,7 @@ export default {
   },
   data() {
     return {
-      currentTheme: "",
+      currentTheme: null,
     }
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-.themes-area {
+.themes-section {
   width: 100%;
 }
 

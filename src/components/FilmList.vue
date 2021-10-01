@@ -4,11 +4,11 @@
       v-for="film in filmList"
       :key="film.id"      
       class="film-item"
-      @click="showFilmItem = true"
     >
-      {{ film.title }}
+      <FilmItem
+        :film="film"
+      />
       
-      <!-- <FilmItem v-if="showFilmItem" :film="film" @close="showFilmItem = false"/> -->
     </div>
     <div>
       <strong>
@@ -19,23 +19,17 @@
 </template>
 
 <script>
-// import FilmItem from "./FilmItem.vue";
+import FilmItem from "./FilmItem.vue";
 
 export default {
   name: "FilmList",
   components: {
-    // FilmItem
+    FilmItem
   },
   props: {
     open: Boolean,
     filmList: Array
-  },
-  data() {
-    return {
-      showFilmItem: false
-    }
   }
-
 }
 </script>
 

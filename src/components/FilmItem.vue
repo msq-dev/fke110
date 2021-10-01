@@ -1,27 +1,31 @@
 <template>
-  <div class="film-modal">
-    <h1>{{ film.title }}</h1>
-    <button @click="$emit('close')">Schließen</button>
-
+  <div>
+    <div class="film-item" @click="showModal = true">
+      {{ film.title }}
+    </div>
+    <FilmModal v-if="showModal" :film="film" @close="showModal = false"/>
   </div>
 </template>
 
 <script>
+import FilmModal from "./FilmModal.vue"
+
 export default {
   name: "FilmItem",
+  components: {
+    FilmModal
+  },
   props: {
     film: Object
+  },
+  data() {
+    return {
+      showModal: false
+    }
   }
 }
 </script>
 
 <style>
-.film-modal {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  background: lightskyblue;
-}
 
 </style>
