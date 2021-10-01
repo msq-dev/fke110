@@ -8,8 +8,6 @@
       @toggle="showStats = !showStats"
     >
       <SectionStatistics v-if="showStats" :films="films"/>
-
-      
     </collapsible>    
 
     <collapsible
@@ -17,7 +15,7 @@
       title="Themen"
       @toggle="showThemes = !showThemes"
     >
-      <SectionThemes v-if="showThemes" :films="films" :themes="themes"/>
+      <SectionList v-if="showThemes" :films="films" :list="themes" :itemId="themeId"/>
     </collapsible>    
 
     <collapsible
@@ -25,7 +23,7 @@
       title="Mitglieder"
       @toggle="showMembers = !showMembers"
     >
-      <SectionMembers v-if="showMembers" :films="films" :members="members"/>
+      <SectionList v-if="showMembers" :films="films" :list="members" :itemId="memberId"/>
     </collapsible>    
 
   </div>
@@ -34,8 +32,7 @@
 <script>
 import axios from "axios"
 import SectionStatistics from "./components/SectionStatistics.vue"
-import SectionMembers from "./components/SectionMembers.vue"
-import SectionThemes from "./components/SectionThemes.vue"
+import SectionList from "./components/SectionList.vue"
 import Collapsible from "./components/Collapsible.vue"
 
 const getFilms = axios.get(process.env.VUE_APP_API_ROOT + process.env.VUE_APP_FKE110_GET_ALL_FILMS)
@@ -46,8 +43,7 @@ export default {
   name: "App",
   components: {
     SectionStatistics,
-    SectionMembers,
-    SectionThemes,
+    SectionList,
     Collapsible
   },
   data() {
@@ -55,6 +51,8 @@ export default {
       films: [],
       themes: [],
       members: [],
+      themeId: "theme_id", 
+      memberId: "member_id", 
       showStats: false,
       showThemes: false,
       showMembers: false,

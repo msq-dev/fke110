@@ -5,10 +5,7 @@
       :key="film.id"      
       class="film-item"
     >
-      <FilmItem
-        :film="film"
-      />
-      
+      <FilmItem :film="film" />
     </div>
     <div>
       <strong>
