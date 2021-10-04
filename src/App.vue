@@ -1,43 +1,50 @@
 <template>
   <div id="app">
-    <h1>FKE110</h1>
+    <h1 class="app-title">FKE110</h1>
 
     <collapsible
       :open="showStats"
       title="Statistiken"
       @toggle="showStats = !showStats"
     >
-      <SectionStatistics v-if="showStats" :films="films"/>
+      <SectionStatistics v-if="showStats"/>
     </collapsible>    
 
     <collapsible
       :open="showThemes"
+      sectionClass="themes-active"
       title="Themen"
       @toggle="showThemes = !showThemes"
     >
-      <SectionList v-if="showThemes" :films="films" :list="themes" :itemId="themeId"/>
+      <SectionList
+        v-if="showThemes"
+        :list="themes"
+        :itemId="themeId"
+        listClass="themes-list"
+      />
     </collapsible>    
 
     <collapsible
       :open="showMembers"
+      sectionClass="members-active"
       title="Mitglieder"
       @toggle="showMembers = !showMembers"
     >
-      <SectionList v-if="showMembers" :films="films" :list="members" :itemId="memberId"/>
+      <SectionList
+        v-if="showMembers"
+        :list="members"
+        :itemId="memberId"
+        listClass="members-list"
+      />
     </collapsible>    
 
   </div>
 </template>
 
 <script>
-import axios from "axios"
 import SectionStatistics from "./components/SectionStatistics.vue"
 import SectionList from "./components/SectionList.vue"
 import Collapsible from "./components/Collapsible.vue"
-
-const getFilms = axios.get(process.env.VUE_APP_API_ROOT + process.env.VUE_APP_FKE110_GET_ALL_FILMS)
-const getThemes = axios.get(process.env.VUE_APP_API_ROOT + process.env.VUE_APP_FKE110_GET_ALL_THEMES)
-const getMembers = axios.get(process.env.VUE_APP_API_ROOT + process.env.VUE_APP_FKE110_GET_ALL_MEMBERS)
 
 export default {
   name: "App",
@@ -46,29 +53,25 @@ export default {
     SectionList,
     Collapsible
   },
+  computed: {
+    themes() {
+      return this.$store.state.themes
+    },
+    members() {
+      return this.$store.state.members
+    },
+  },
   data() {
     return {
-      films: [],
-      themes: [],
-      members: [],
       themeId: "theme_id", 
       memberId: "member_id", 
       showStats: false,
-      showThemes: true,
+      showThemes: false,
       showMembers: false,
     }
   },
   mounted() {
-    axios
-      .all([getFilms, getThemes, getMembers])
-      .then(axios.spread((...res) => {
-        this.films = res[0].data
-        this.themes = res[1].data
-        this.members = res[2].data
-      }))
-      .catch((err) => {
-        console.error(err);
-      })
+    this.$store.dispatch("getData")
   },
 }
 </script>
@@ -83,10 +86,19 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+html {
+  overflow-y: scroll;
+}
+
 #app {
   --fw-normal: 300;
   --fw-bold: 500;
 
+  --toggler-hue: 220;
+  --toggler-saturation: 14%;
+  --toggler-lightness: 96%;
+  
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -95,4 +107,17 @@ export default {
   font-weight: var(--fw-normal);
   padding-left: 1rem;
 }
+
+.app-title {
+  margin: 1.5rem 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .25s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
 </style>

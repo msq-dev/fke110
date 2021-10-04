@@ -1,7 +1,11 @@
 <template>
   <div class="collapsible">
-    <collapsible-toggler :open="open" v-on="$listeners">
-      {{ togglerTitle }}
+    <collapsible-toggler
+      :open="open"
+      :class="[togglerClasses, listClasses]"
+      v-on="$listeners"
+    >
+      {{ title }}
     </collapsible-toggler>
 
     <div class="content">
@@ -20,13 +24,25 @@ export default {
   },
   props: {
     open: Boolean,
-    title: String
+    title: String,
+    sectionClass: String,
+    listClass: String
   },
-  data() {
-    return {
-      togglerTitle: this.title
+  computed: {
+    togglerClasses() {
+      return {
+        active: this.open,
+        "themes-active": this.open && this.sectionClass === "themes-active",
+        "members-active": this.open && this.sectionClass === "members-active"
+      }
+    },
+    listClasses() {
+      return {
+        "themes-list": this.listClass === "themes-list",
+        "members-list": this.listClass === "members-list",
+      }
     }
-  }
+  },
 }
 </script>
 

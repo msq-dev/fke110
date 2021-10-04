@@ -4,9 +4,15 @@
     <p class="title">{{ film.title }} <span class="year">({{ film.year }})</span></p>
     <p>{{ film.director }} &middot; {{ countryToIso(JSON.parse(film.country)) }}</p>
     <p><Update /> {{ film.duration }}min</p>
-    <p><CommentQuoteOutline /> {{ "THeME" }}</p>
+    <p>
+      <CommentQuoteOutline />
+      {{ theme }}
+    </p>
     <p v-if="film.watched_on"><Theater /> {{ germanizedDate(film.watched_on) }}</p>
-    <p><Account /> {{ "MEMbER" }}</p>
+    <p>
+      <Account />
+      {{ member }}
+    </p>
     
   </div>
 </template>
@@ -32,6 +38,14 @@ export default {
   },
   props: {
     film: Object
+  },
+  computed: {
+    theme() {
+      return this.$store.getters.getCurrentFilmThemeName(this.film.id)
+    },
+    member() {
+      return this.$store.getters.getCurrentFilmMemberName(this.film.id)
+    },
   },
   methods: {
     countryToIso(country) { // "Deutschland" -> "DE" etc.

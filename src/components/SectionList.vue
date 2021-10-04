@@ -1,7 +1,8 @@
 <template>
   <div class="list-section">
-    <collapsible
-      v-for="item in list"
+    <collapsible v-for="item in list"
+      class="list"
+      :listClass="listClass"
       :open="isCurrentItem(item.id)"
       :title="item.name"
       :key="item.id"
@@ -25,13 +26,18 @@ export default {
     FilmList
   },
   props: {
-    films: Array,
     list: Array,
-    itemId: String
+    itemId: String,
+    listClass: String
   },
+  computed: {
+    films() {
+      return this.$store.state.films
+    }
+  },  
   data() {
     return {
-      currentItem: "1",
+      currentItem: null,
     }
   },
   methods: {
@@ -58,6 +64,10 @@ export default {
 <style scoped>
 .list-section {
   width: 100%;
+}
+
+.list {
+  padding-left: .5rem;
 }
 
 </style>

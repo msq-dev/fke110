@@ -25,8 +25,10 @@ const chartColors = [
 
 export default {
   name: "SectionStatistics",
-  props: {
-    films: Array
+  computed: {
+    films() {
+      return this.$store.state.films
+    }
   },
   data() {
     return {

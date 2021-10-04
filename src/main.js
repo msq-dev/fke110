@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueApexCharts from 'vue-apexcharts'
+import store from './store'
 
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
@@ -17,5 +18,6 @@ Vue.filter('totalDuration', function(filmsList) {
 })
 
 new Vue({
-  render: h => h(App),
+  store,
+  render: h => h(App)
 }).$mount('#app')

@@ -3,7 +3,9 @@
     <div class="film-item" @click="showModal = true">
       {{ film.title }}
     </div>
-    <FilmModal v-if="showModal" :film="film" @close="showModal = false"/>
+    <transition name="fade">
+      <FilmModal v-if="showModal" :film="film" @close="showModal = false"/>
+    </transition>
   </div>
 </template>
 
@@ -20,7 +22,7 @@ export default {
   },
   data() {
     return {
-      showModal: true
+      showModal: false
     }
   }
 }

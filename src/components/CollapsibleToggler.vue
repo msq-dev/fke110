@@ -1,5 +1,8 @@
 <template>
-  <div class="toggler" @click="$emit('toggle')">
+  <div
+    class="toggler"
+    @click="$emit('toggle')"
+  >
     <slot></slot><span>{{ open ? "&minus;" : "+" }}</span>
   </div>
 </template>
@@ -8,18 +11,35 @@
 export default {
   name: "CollapsibleToggler",
   props: {
-    open: Boolean
-  }
+    open: Boolean,
+  },
 }
 </script>
 
-<style scoped>
+<style>
 .toggler {
   display: flex;
   justify-content: space-between;
   padding: 1rem 1rem;
   margin-bottom: 0.2rem;
-  background: #F3F4F6;
+  background: hsl(var(--toggler-hue), var(--toggler-saturation), var(--toggler-lightness));
   cursor: pointer;
+}
+
+.toggler:hover,
+.active {
+  --toggler-lightness: 80%;
+}
+
+.themes-active,
+.themes-list.toggler {
+  --toggler-hue: 0;
+  --toggler-saturation: 70%;
+}
+
+.members-active,
+.members-list.toggler {
+  --toggler-hue: 240;
+  --toggler-saturation: 70%;
 }
 </style>
