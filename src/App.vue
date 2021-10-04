@@ -54,7 +54,7 @@ export default {
       themeId: "theme_id", 
       memberId: "member_id", 
       showStats: false,
-      showThemes: false,
+      showThemes: true,
       showMembers: false,
     }
   },
@@ -80,14 +80,19 @@ export default {
 *::before,
 *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 #app {
+  --fw-normal: 300;
+  --fw-bold: 500;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   font-family: "Karla", sans-serif;
-  font-weight: 300;
+  font-weight: var(--fw-normal);
   padding-left: 1rem;
 }
 </style>

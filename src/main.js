@@ -13,7 +13,6 @@ Vue.filter('totalDuration', function(filmsList) {
       const duration = parseInt(filmsList[i].duration ? filmsList[i].duration : "0")
       total += duration
     }
-
     return `${ Math.floor(total / 60) }h ${ total % 60 }min`
 })
 

@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      currentItem: null,
+      currentItem: "1",
     }
   },
   methods: {
