@@ -11,6 +11,8 @@
       <FilmList
         :open="isCurrentItem(item.id)"
         :filmList="getFilmsByItemId(item.id)"
+        :listName="listName"
+        :listId="item.id"
       />
     </collapsible>
   </div>
@@ -27,6 +29,7 @@ export default {
   },
   props: {
     list: Array,
+    listName: String,
     itemId: String,
     listClass: String
   },

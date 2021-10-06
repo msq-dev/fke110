@@ -26,7 +26,6 @@ export default {
   cursor: pointer;
 }
 
-.toggler:hover,
 .active {
   --toggler-lightness: 80%;
 }

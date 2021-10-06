@@ -7,8 +7,8 @@
     >
       {{ title }}
     </collapsible-toggler>
-
-    <div class="content">
+    
+    <div class="content" ref="collapsibleContent">
       <slot></slot>
     </div>
   </div>

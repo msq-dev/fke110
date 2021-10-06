@@ -3,7 +3,7 @@
     <div class="running-time">
       Gesamtlaufzeit: <b>{{ films | totalDuration }}</b>
     </div>
-    <div class="chart-container">
+    <div class="chart">
       <apexchart :options="chartOptions" :series="countryValues"></apexchart>
     </div>
   </div>
@@ -18,17 +18,15 @@ const chartColors = [
   "#14d2bdff", 
   "#ae2012ff", 
   "#ca6702ff", 
-  "#001219ff",
-  "#09d8a6ff", 
-  "#9b2226ff"
+  "#00ab19ff",
+  "darkmagenta", 
+  "#FF6347",
 ]
 
 export default {
-  name: "SectionStatistics",
-  computed: {
-    films() {
-      return this.$store.state.films
-    }
+  name: "Statistics",
+  props: {
+    films: Array
   },
   data() {
     return {
@@ -37,7 +35,7 @@ export default {
       chartOptions: {
         chart: {
           type: "pie",
-          fontFamily: "Avenir, sans-serif",
+          fontFamily: "sans-serif",
         },
           labels: [],
           legend: {
@@ -101,6 +99,7 @@ export default {
       }
     }
   },
+
   mounted() {
     this.countCountries(this.films).forEach((c) => {
       this.chartOptions.labels.push(c[0])
@@ -112,14 +111,23 @@ export default {
 </script>
 
 <style>
-.chart-container {
-  width: 90vw;
-  height: 70vh;
+.statistics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
-.running-time {
+.running-time b {
+  font-weight: var(--fw-bold);
   text-align: center;
-  margin: 1rem 0;
+}
+
+.chart {
+  width: 90%;
+  height: 70%;
+  margin-top: 1rem;
 }
 
 </style>

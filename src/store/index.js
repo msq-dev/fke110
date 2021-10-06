@@ -26,11 +26,14 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    getCurrentFilmThemeName: (state) => (filmId) => {
+    getListName: (state) => (listId, list) => {
+      return state[list].find(l => l.id === listId).name
+    },
+    getCurrentFilmTheme: (state) => (filmId) => {
       const currentFilmThemeId = state.films.find(f => f.id === filmId).theme_id
       return state.themes.find(t => t.id === currentFilmThemeId).name
     },
-    getCurrentFilmMemberName: (state) => (filmId) => {
+    getCurrentFilmMember: (state) => (filmId) => {
       const currentFilmMemberId = state.films.find(f => f.id === filmId).member_id
       return state.members.find(t => t.id === currentFilmMemberId).name
     }

@@ -3,19 +3,26 @@
     <div class="film-item" @click="showModal = true">
       {{ film.title }}
     </div>
+
     <transition name="fade">
-      <FilmModal v-if="showModal" :film="film" @close="showModal = false"/>
+      <modal v-if="showModal"
+        @close="showModal = false"
+      >
+        <FilmInfo :film="film"/>
+      </modal>
     </transition>
   </div>
 </template>
 
 <script>
-import FilmModal from "./FilmModal.vue"
+import FilmInfo from "./FilmInfo.vue"
+import Modal from "./Modal.vue"
 
 export default {
   name: "FilmItem",
   components: {
-    FilmModal
+    FilmInfo,
+    Modal
   },
   props: {
     film: Object
@@ -29,5 +36,4 @@ export default {
 </script>
 
 <style>
-
 </style>
