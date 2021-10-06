@@ -9,20 +9,14 @@
         <FilmItem :film="film" />
       </div>
 
-      <div class="stats-btn" @click="showModal = true" @close="showModal = false">
-        <ChartBar />
+      <div class="stats-btn" @click="showFilmStats = true">
+        <IconStats />
       </div>
 
-      <transition name="fade">
-        <modal v-if="showModal"
-          @close="showModal = false"
-        >
-          <div class="title">{{ title }}</div>
-          <Statistics 
-            :films="filmList"
-          />
-        </modal>
-      </transition>
+      <modal :open="showFilmStats" @close="showFilmStats = false">
+        <div class="title">{{ title }}</div>
+        <Statistics :films="filmList" />
+      </modal>
 
     </div>
   </transition>
@@ -32,7 +26,7 @@
 import FilmItem from "./FilmItem.vue"
 import Statistics from "./Statistics.vue"
 import Modal from "./Modal.vue"
-import ChartBar from "icons/ChartBar"
+import IconStats from "icons/ChartBar"
 
 export default {
   name: "FilmList",
@@ -40,7 +34,7 @@ export default {
     FilmItem,
     Statistics,
     Modal,
-    ChartBar
+    IconStats
   },
   props: {
     open: Boolean,
@@ -55,7 +49,7 @@ export default {
   },
   data() {
     return {
-      showModal: false,
+      showFilmStats: false,
     }
   },
 }
@@ -68,6 +62,7 @@ export default {
 }
 
 .title {
+  align-self: center;
   font-size: 1.7rem;
   font-weight: var(--fw-bold);
   margin: 2rem 0 1rem 0;

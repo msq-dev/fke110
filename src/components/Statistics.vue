@@ -88,7 +88,7 @@ export default {
         const country = uniqueCountries[k]
         const count = countries.filter(c => c === country).length
 
-        countedCountries.push([country.replace("Vereinigtes Königreich", "UK"), count])
+        countedCountries.push([country, count])
       }
 
       return countedCountries

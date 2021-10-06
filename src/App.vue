@@ -2,13 +2,6 @@
   <div id="app">
     <div class="navbar">
       <h1 class="app-title">FKE110</h1>
-
-      <!-- <div class="menu-icon" ref="menuIcon" @click="toggleMenu">
-        <span id="top"></span>
-        <span id="middle"></span>
-        <span id="bottom"></span>
-      </div> -->
-
     </div>
 
     <main>
@@ -17,10 +10,12 @@
         title="Statistiken"
         @toggle="showStats = !showStats, showThemes = false, showMembers = false"
       >
-        <Statistics v-if="showStats"
-          :films="films"
-          class="stats-section"
-        />
+        <transition name="slide">
+          <Statistics v-if="showStats"
+            :films="films"
+            class="stats-section"
+          />
+        </transition>
       </collapsible>
 
       <collapsible
@@ -29,13 +24,15 @@
         title="Themen"
         @toggle="showThemes = !showThemes, showStats = false, showMembers = false"
       >
-        <SectionList
-          v-if="showThemes"
-          :list="themes"
-          listName="themes"
-          :itemId="themeId"
-          listClass="themes-list"
-        />
+        <transition name="slide">
+          <SectionList
+            v-if="showThemes"
+            :list="themes"
+            listName="themes"
+            :itemId="themeId"
+            listClass="themes-list"
+          />
+        </transition>
       </collapsible>
 
       <collapsible
@@ -44,13 +41,15 @@
         title="Mitglieder"
         @toggle="showMembers = !showMembers, showStats = false, showThemes = false"
       >
-        <SectionList
-          v-if="showMembers"
-          :list="members"
-          listName="members"
-          :itemId="memberId"
-          listClass="members-list"
-        />
+        <transition name="slide">
+          <SectionList
+            v-if="showMembers"
+            :list="members"
+            listName="members"
+            :itemId="memberId"
+            listClass="members-list"
+          />
+        </transition>
       </collapsible>
     </main>
 
@@ -156,45 +155,7 @@ main {
   width: 100vw;
   padding: 0 1rem;
   box-shadow: 0 1px 7px 0 rgba(0, 0, 0, .5);
-  /* background: lightsalmon; */
   margin-bottom: 2rem;
-}
-
-.menu-icon {
-  width: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.menu-icon.active {
-  margin-bottom: 1rem;
-}
-
-.menu-icon span {
-  display: block;
-  width: 100%;
-  height: 0.2rem;
-  margin-top: 0.3rem;
-  border-radius: 9999px;
-  background-color: #000;
-  transition: transform 0.1s,
-    opacity 0.1s,
-    background-color 0.1s;
-}
-
-.menu-icon.active span {
-  background-color: #000;
-}
-
-.menu-icon.active #middle {
-  opacity: 0;
-}
-
-.menu-icon.active #top {
-  transform: rotate(45deg) translate(0.7rem, 0.7rem);
-}
-
-.menu-icon.active #bottom {
-  transform: rotate(-45deg);
 }
 
 .fade-enter-active, .fade-leave-active {

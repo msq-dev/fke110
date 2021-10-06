@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="film-item" @click="showModal = true">
+    <div class="film-item" @click="showFilmInfo = true">
       {{ film.title }}
     </div>
 
-    <transition name="fade">
-      <modal v-if="showModal"
-        @close="showModal = false"
-      >
-        <FilmInfo :film="film"/>
-      </modal>
-    </transition>
+    <modal
+      :key="'info-' + film.id"
+      :open="showFilmInfo"
+      @close="handleCloseInfo"
+    >
+      <FilmInfo :film="film"/>
+    </modal>
   </div>
 </template>
 
@@ -29,7 +29,12 @@ export default {
   },
   data() {
     return {
-      showModal: false
+      showFilmInfo: false
+    }
+  },
+  methods: {
+    handleCloseInfo() {
+      this.showFilmInfo = false
     }
   }
 }

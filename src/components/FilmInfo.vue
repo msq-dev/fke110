@@ -4,58 +4,77 @@
       {{ film.title }}
       <span v-if="film.year" class="year">({{ film.year }})</span>
     </div>
-    <div class="director">
+    <div v-if="film.director" class="director">
       {{ film.director }} 
       <span v-if="film.country">&middot; {{ countryToIso(JSON.parse(film.country)) }}</span>
     </div>
 
     <div class="infos-w-icon">
-      <div>
-        <Update class="info-icon"/>
+      <div v-if="film.duration">
+        <IconDuration class="info-icon"/>
         {{ film.duration }}min
       </div>
 
       <div>
-        <CommentQuoteOutline class="info-icon"/>
+        <IconTheme class="info-icon"/>
         {{ theme }}
       </div>
 
       <div v-if="film.watched_on">
-        <Theater class="info-icon"/>
+        <IconWatching class="info-icon"/>
         {{ germanizedDate(film.watched_on) }}
       </div>
 
       <div>
-        <Account class="info-icon"/>
+        <IconMember class="info-icon"/>
         {{ member }}
       </div>
     </div>
 
-    <div class="edit">
-      
+    <div class="btn-edit" @click="showFilmEdit = true">
+      <IconMovieEdit/> Bearbeiten               
     </div>
 
-    
+    <modal
+      :key="'edit-' + film.id"
+      :open="showFilmEdit"
+      :uberModal="true"
+      @close="handleCloseEdit"
+    >
+      <FilmEdit @close="handleCloseEdit" :film="film"/>
+    </modal>
+
   </div>
 </template>
 
 <script>
-import countries from "../assets/countries"
-import Update from "icons/Update"
-import CommentQuoteOutline from "icons/CommentQuoteOutline"
-import Theater from "icons/Theater"
-import Account from "icons/Account"
+import Modal from "./Modal.vue"
+import FilmEdit from "./FilmEdit.vue"
+import IconDuration from "icons/Update"
+import IconTheme from "icons/CommentQuoteOutline"
+import IconWatching from "icons/Theater"
+import IconMember from "icons/Account"
+import IconMovieEdit from "icons/MovieOpenEdit"
+import countries from "@/assets/countries"
 import 'vue-material-design-icons/styles.css'
 
 export default {
   components: {
-    Update,
-    CommentQuoteOutline,
-    Theater,
-    Account
+    Modal,
+    FilmEdit,
+    IconDuration,
+    IconTheme,
+    IconWatching,
+    IconMember,
+    IconMovieEdit,
   },
   props: {
     film: Object
+  },
+  data() {
+    return {
+      showFilmEdit: false,
+    }
   },
   computed: {
     theme() {
@@ -66,6 +85,9 @@ export default {
     },
   },
   methods: {
+    handleCloseEdit() {
+      this.showFilmEdit = false
+    },
     countryToIso(country) { // "Deutschland" -> "DE" etc.
       let isoList = country.map(c => countries[c])
       return isoList.join("/")
@@ -87,13 +109,13 @@ export default {
 
 <style>
 .film-info {
-  padding-left: 1rem;
+  /* padding: 0 1rem; */
 }
 
 .film-info .title {
   font-size: 1.7rem;
   font-weight: var(--fw-bold);
-  margin: 2rem 0 1rem 0;
+  margin: 1.75rem 0 1rem 0;
 }
 
 .year {
@@ -116,4 +138,14 @@ export default {
   transform: translateY(-15%);
   margin-right: 0.5rem;
 }
+
+.btn-edit {
+  display: inline-block;
+  color: #fff;
+  background: cornflowerblue;
+  border-radius: 100vw;
+  padding: 0.5rem 1rem;
+  margin-top: 2rem;
+}
+
 </style>

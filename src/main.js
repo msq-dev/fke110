@@ -1,10 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueApexCharts from 'vue-apexcharts'
 import store from './store'
+import VueApexCharts from 'vue-apexcharts'
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css'
 
 Vue.use(VueApexCharts)
+
 Vue.component('apexchart', VueApexCharts)
+Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false
 
